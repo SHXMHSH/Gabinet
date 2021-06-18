@@ -1,0 +1,38 @@
+﻿@model IEnumerable<UserModel>
+@{
+    ViewData["Title"] = "Lista lekarzy";
+}
+
+@if (TempData["ResultAction"] is not null)
+{
+    <div class="alert alert-info" role="alert">
+        @TempData["ResultAction"]
+    </div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Imię nazwisko: </th>
+            <th scope="col">Specializacja</th>
+            <th scope="col" style="text-align:right">Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ int i = 1;}
+        @foreach (UserModel item in Model)
+        {
+            <tr>
+                <td scope="row">@i</td>
+                <td>@item.Name @item.Surname</td>
+                <td>@item.Position</td>
+                <td>
+                    <a asp-controller="Appointment" asp-action="Date" asp-route-userId="@item.UserId" class="btn btn-secondary btn-sm">Dodaj wizytę</a>
+
+                @{ i++;}
+            </tr>
+        }
+
+    </tbody>
+</table>

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<AppointmentModel>
+@{ ViewData["Title"] = "Lista Gabientów"; }
+
+@if (TempData["ResultAction"] is not null)
+{
+<div class="alert alert-info" role="alert">
+    @TempData["ResultAction"]
+</div>}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Pesel: </th>
+            <th scope="col">Imie Nazwisko:</th>
+            <th scope="col">Doktor</th>
+            <th scope="col">Data</th>
+            
+    </thead>
+    <tbody>
+        @{ int i = 1;}
+        @foreach (AppointmentModel item in Model)
+        {
+<tr>
+    <td scope="row">@i</td>
+    <td>@item.Date</td>
+    <td>@item.Patient.Name @item.Patient.Surname</td>
+    <td>@item.User.Surname</td>
+    <td>@item.Date</td>
+
+    @{ i++;}
+</tr>}
+
+    </tbody>
+</table>
+

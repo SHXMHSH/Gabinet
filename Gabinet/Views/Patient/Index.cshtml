@@ -1,0 +1,52 @@
+﻿@model PagingVModel<PatientModel>
+@{
+    ViewData["Title"] = "Lista Gabientów";
+}
+
+@if (TempData["ResultAction"] is not null)
+{
+    <div class="alert alert-info" role="alert">
+        @TempData["ResultAction"]
+    </div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Pesel: </th>
+            <th scope="col">Imie Nazwisko:</th>
+            <th scope="col">Adres</th>
+            <th scope="col" style="text-align:right"><a class="btn btn-primary btn-sm" asp-action="CreatePatient" asp-controller="Patient" asp-route-returnUrl="@Context.Request.HttpContext.Request.PathAndQuery()">Dodaj Pacjenta</a></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (PatientModel item in Model.GetCollection)
+        {
+            <tr>
+                <td scope="row">@item.PatientId</td>
+                <td>@item.Pesel</td>
+                <td>@item.Name @item.Surname</td>
+                <td>@item.Street , @item.PostCode @item.City</td>
+                <td>
+                    <a asp-controller="Patient" asp-action="PatientVisits" asp-route-id="@item.PatientId" class="btn btn-secondary btn-sm">Pokaż wizyty</a>
+                    <a asp-controller="Patient" asp-action="CreatePatient" asp-route-id="@item.PatientId" asp-route-returnUrl="@Context.Request.HttpContext.Request.PathAndQuery()" class="btn btn-default btn-sm">Edytuj</a>
+                    <a asp-controller="Patient" asp-action="RemovePatient" asp-route-patientId="@item.PatientId" class="btn btn-danger btn-sm">Usuń</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+<form asp-action="Index" asp-controller="Patient" asp-route-itemOnPage="@ViewBag.MaxItem" method="get">
+    <div class="form-row">
+        <div class="col-md-3">
+            <input class="form-control form-control-sm" type="number" name="itemOnPage" value="@ViewBag.MaxItem" />
+            <button type="submit"  value="OK" class="btn btn-secondary btn-sm">OK</button>
+        </div>
+        <div class="col-md-9">
+            <paging action-name="Index" controller-name="Patient" paging-model="@Model.GetPaging"></paging>
+        </div>
+        </div>
+
+</form>

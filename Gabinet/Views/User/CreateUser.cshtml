@@ -1,0 +1,64 @@
+﻿@model UserVModel
+@{
+    ViewData["Title"] = "Dodaj pracownika";
+}
+
+<form asp-action="CreateUser" asp-controller="User" method="post">
+    <div asp-validation-summary="All">
+        @ViewBag.ErrorRegister
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label asp-for="Email">Email</label>
+            <input type="email" class="form-control" asp-for="Email" placeholder="Email">
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="Password">Hasło</label>
+            <input type="password" class="form-control" asp-for="Password" placeholder="Hasło">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label asp-for="UserModel.Name">Imię</label>
+            <input type="text" class="form-control" asp-for="UserModel.Name" placeholder="Imię">
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="UserModel.Surname">Nazwisko</label>
+            <input type="text" class="form-control" asp-for="UserModel.Surname" placeholder="Nazwisko">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label asp-for="UserModel.Street">Ulica</label>
+            <input type="text" class="form-control" asp-for="UserModel.Street" placeholder="ul.....">
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="UserModel.City">Miasto</label>
+            <input type="text" class="form-control" asp-for="UserModel.City" placeholder="Miasto">
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="UserModel.PostCode">PostCode</label>
+            <input type="text" class="form-control" asp-for="UserModel.PostCode">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label asp-for="UserModel.PlaceId">Gabinet: </label>
+            <select asp-for="UserModel.PlaceId" asp-items="@(new SelectList(Model.GetPlaces, "PlaceId", "Name"))" class="form-control">
+            </select>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label asp-for="Role">Uprawnienia: </label>
+            <select asp-for="Role" asp-items="@(new SelectList(Model.RoleIdentity, "Name", "Name"))" class="form-control">
+            </select>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label asp-for="UserModel.Phone">Telefon: </label>
+            <input type="tel" class="form-control" asp-for="UserModel.Phone">
+        </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Dodaj</button>
+</form>

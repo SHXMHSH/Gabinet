@@ -1,0 +1,58 @@
+﻿@model PatientModel
+@{
+    ViewData["Title"] = "Lista Pacjentów";
+}
+
+<form asp-action="CreatePatient" asp-controller="Patient" method="post">
+    @Html.AntiForgeryToken()
+    <div class="form-row align-items-center justify-content-md-center">
+        <div class="col-auto">
+            <div asp-validation-summary="All"></div>
+            <input type="hidden" asp-for="PatientId" />
+            <div class="form-group">
+                <label asp-for="Name">Imie:</label>
+                <input asp-for="Name" type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Surname">Nazwisko:</label>
+                <input asp-for="Surname" type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Pesel">PESEL:</label>
+                <input asp-for="Pesel" type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Street">Adres:</label>
+                <input asp-for="Street" type="text" class="form-control" />
+            </div>
+            <div class="form-row">
+                <div class="form-group ">
+                    <label asp-for="PostCode">Kod pocztowy:</label>
+                    <input asp-for="PostCode" type="text" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="City">Miasto:</label>
+                    <input asp-for="City" type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="Phone">Telefon:</label>
+                    <input asp-for="Phone" type="tel" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email">Mail:</label>
+                    <input asp-for="Email" type="email" class="form-control" />
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Dodaj</button>
+            <a asp-controller="Patient" asp-action="Index" href="@ViewBag.ReturnUrl" class="btn btn-secondary">Powrót</a>
+
+
+        </div>
+    </div>
+</form>
+
+
+
+

@@ -1,0 +1,54 @@
+﻿@model PagingVModel<AppointmentModel>
+@{
+    ViewData["Title"] = "Lista Wizyt";
+}
+
+@if (TempData["ResultAction"] is not null)
+{
+    <div class="alert alert-info" role="alert">
+        @TempData["ResultAction"]
+    </div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Data: </th>
+            <th scope="col">Pacjent:</th>
+            <th scope="col">Doktor: </th>
+            <th scope="col">Opis: </th>
+            <th scope="col" style="text-align:right">Cena: </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int i = 1;}
+        @foreach (AppointmentModel item in Model.GetCollection)
+        {
+        <tr>
+            <td scope="row">@i</td>
+            <td>@item.Date.ToString("hh:mm dd/MM/yyyy")</td>
+            <td>@item.Patient.Name @item.Patient.Surname</td>
+            <td>@item.User.Name @item.User.Surname </td>
+            <td>@item.User.Name @item.Description </td>
+            <td>
+            </td>
+            @{i++;}
+        </tr>
+           
+        }
+
+    </tbody>
+</table>
+<form asp-action="Index" asp-controller="Appointment" asp-route-itemOnPage="@ViewBag.MaxItem" method="get">
+    <div class="form-row">
+        <div class="col-md-3">
+            <input class="form-control form-control-sm" type="number" name="itemOnPage" value="@ViewBag.MaxItem" />
+            <button type="submit"  value="OK" class="btn btn-secondary btn-sm">OK</button>
+        </div>
+        <div class="col-md-9">
+            <paging action-name="Index" controller-name="Patient" paging-model="@Model.GetPaging"></paging>
+        </div>
+        </div>
+
+</form>

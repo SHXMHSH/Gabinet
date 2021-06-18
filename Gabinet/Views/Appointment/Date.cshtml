@@ -1,0 +1,23 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Data Wizyty";
+}
+
+@if (TempData["ResultAction"] is not null)
+{
+    <div class="alert alert-info" role="alert">
+        @TempData["ResultAction"]
+    </div>
+}
+
+<form asp-action="Register" asp-controller="Appointment" asp-route-id="@ViewBag.userId" method="get" class="col-lg-6 offset-lg-3 ">
+    <div class="row justify-content-center">
+        <input type="hidden" name="userId" value="@ViewBag.userId" />
+        <input type="date" name="registerDate">
+        <span class="input-group-btn">
+            <button type="submit" class="btn btn-primary">Download</button>
+        </span>
+    </div>
+</form>
+
+

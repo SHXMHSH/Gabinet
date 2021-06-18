@@ -1,0 +1,38 @@
+﻿@model IEnumerable<PlaceModel>
+@{
+    ViewData["Title"] = "Lista Gabientów";
+}
+
+@if (TempData["ResultAction"] is not null)
+{
+    <div class="alert alert-info" role="alert">
+        @TempData["ResultAction"]
+    </div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nazwa: </th>
+            <th scope="col">Adres</th>
+            <th scope="col" style="text-align:right"><a class="btn btn-primary btn-sm" asp-action="CreatePlace" asp-controller="Place" asp-route-returnUrl="@Context.Request.HttpContext.Request.PathAndQuery()">Dodaj placówke</a></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (PlaceModel item in Model)
+        {
+            <tr>
+                <td scope="row">@item.PlaceId</td>
+                <td>@item.Name</td>
+                <td>@item.Street , @item.PostCode @item.City</td>
+                <td>
+                    <a asp-controller="Patient" asp-action="PatientVisits" class="btn btn-secondary btn-sm">Pokaż dzisiejsze wizyty</a>
+                    <a asp-controller="Place" asp-action="CreatePlace" asp-route-id="@item.PlaceId" asp-route-returnUrl="@Context.Request.HttpContext.Request.PathAndQuery()" class="btn btn-default btn-sm">Edytuj</a>
+                    <a asp-controller="Place" asp-action="RemovePlace" asp-route-removeId="@item.PlaceId" class="btn btn-danger btn-sm">Usuń</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
